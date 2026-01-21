@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, height=device-height, viewport-fit=cover, width=device-width">
+
+  <meta name="author" content="arthur.lallement@etu.univ-smb.fr">
+  <meta name="description" content="Spotify Tools">
+
+  <meta property="og:description" content="Projet Spotify Tools">
+  <meta property="og:image" content="https://srv-peda2.iut-acy.univ-smb.fr/lallemea/map/favicon/web-app-manifest-512x512.png">
+  <meta property="og:locale" content="fr">
+  <meta property="og:title" content="Spotify Tools">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://srv-peda2.iut-acy.univ-smb.fr/lallemea/map/">
+
+  <meta name="apple-mobile-web-app-title" content="Spotify Tools">
+
+  <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
+  <link rel="shortcut icon" href="./favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Spotify Tools" />
+  <link rel="manifest" href="./favicon/site.webmanifest" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="./css/bulma.css">
+
+  <link rel="stylesheet" href="./css/style.css">
+
+  <script defer src="./js/script.js"></script>
+
+  <title>Spotify Tools</title>
+</head>
+
+<body>
+
+  <!--  MENU PRINCIPAL -->
+  <nav class="navbar theme-dark" role="navigation" aria-label="main navigation">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" href="index.html">
+        <img src="./img/logospotifytools.png">
+      </a>
+
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMain">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navbarMain" class="navbar-menu">
+
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <button id="toggleTableBtn" class="button is-light">
+            Top tracks
+          </button>
+        </div>
+
+        <div class="navbar-item">
+          <button id="toggleMapBtn" class="button is-light">
+            Map
+          </button>
+        </div>
+
+        <div class="navbar-item">
+          <button id="togglePlaylistBtn" class="button is-light">
+            Playlist
+          </button>
+        </div>
+
+        <div class="navbar-item">
+          <button id="gyroscopeBtn" class="button is-light">
+            Gyromètre
+          </button>
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <button id="install_button" class="button is-light" disabled>
+              Installer
+            </button>
+
+            <button id="loginSpotifyBtn" class="button is-light">
+              Log in
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+
+
+
+
+
+  <!-- TABLEAU TOP TRACKS -->
+  <div id="tableContainer" class="box section-card hidden">
+    <h3 class="title is-4 has-text-centered has-text-white">Mes Top Tracks - Long terme</h3>
+    <table id="tracksTable" class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Titre</th>
+          <th>Artistes</th>
+          <th>Album</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h3 class="title is-4 has-text-centered has-text-white">Mes Top Tracks – Court terme</h3>
+
+      <table id="shortTracksTable" class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Titre</th>
+            <th>Artistes</th>
+            <th>Album</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+
+  </div>
+
+  <!-- SPOTIFY PLAYER -->
+  <div id="playlistContainer" class="box   section-card hidden">
+
+    <!--  Options de création de playlist  -->
+    <div id="playlistOptions" class="mb-5">
+
+      <h3 class="title is-4 has-text-white">Créer une playlist personnalisée</h3>
+
+      <div class="field">
+        <label class="label has-text-white">Nombre de tracks</label>
+
+        <input id="trackCountInput"
+           class="slider is-fullwidth spotify-slider"
+           step="1" min="1" max="50"
+           value="20" type="range">
+
+            <p class="has-text-white mt-2">
+              <strong id="trackCountValue" class="has-text-success">20</strong> tracks
+            </p>
+      </div>
+
+      <div class="field">
+        <label class="label has-text-white">Nom de la playlist</label>
+        <div class="control">
+          <input class="input has-background-black has-text-light" type="text" id="playlistNameInput"
+                 placeholder="Ma playlist personnalisée">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label has-text-light">Description</label>
+        <div class="control">
+          <input class="input has-background-black has-text-white" type="text" id="playlistDescInput"
+                 placeholder="Description de la playlist">
+        </div>
+      </div>
+
+      <button id="generatePlaylistBtn" class="button is-fullwidth">
+        Générer la playlist
+      </button>
+
+    </div>
+
+    <!-- AFFICHAGE DU PLAYER  -->
+    <h3 class="title is-4 has-text-white">Playlist générée</h3>
+    <iframe
+      id="spotifyPlayer"
+      width="100%"
+      height="380"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+
+    <p id="playlistResult"></p>
+  </div>
+
+  <!-- MAP LEAFLET -->
+  <div id="mapSection" class="box   section-card hidden">
+    <h3 class="title is-4 has-text-white">Carte des playlists</h3>
+    <div id="map"></div>
+
+    <div id="playlistList" class="box   section-card mt-4">
+      <h3 class="title is-5">Playlists géolocalisées</h3>
+      <ul id="playlistListContent"></ul>
+    </div>
+
+  </div>
+
+  <!--  GYROSCOPE -->
+  <div id="gyroSection" class="box   section-card hidden">
+    <h3 class="title is-4 has-text-white">Playlist via gyromètre</h3>
+    <progress
+      id="gyroProgress"
+      class="progress is-success is-medium hidden"
+      max="100">
+    </progress>
+    <iframe
+      id="spotifyPlayerGyro"
+      width="100%"
+      height="380"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+    <p id="gyroStatus" class="has-text-white mt-2"></p>
+  </div>
+
+
+  <footer>
+    <div class="content has-text-centered">
+      <div id="text_install" class="content has-text-white">
+        <div class="mt-6 ml-6 mr-6 box">
+          <p class="is-size-5 has-text-white">
+            Découvrez vos <strong>top tracks</strong> et créez des <strong>playlists personnalisées</strong> directement depuis Spotify.<br>
+            Visualisez vos créations sur une <strong>carte interactive</strong> et laissez le <strong>gyromètre</strong> de votre appareil générer automatiquement une playlist selon votre humeur.
+          </p>
+          <p class="is-size-6 has-text-white">
+            <strong>Tools</strong> est <em>responsive</em>, <em>installable</em> (PWA) et combine <strong>données musicales</strong>, <strong>interaction innovante</strong> et <strong>visualisation dynamique</strong> pour une expérience musicale unique.
+          </p>
+        </div>
+    <button id="reload_button" class="button" disabled>Reload</button>
+
+  </footer>
+
+  <!-- PWA scripts -->
+  <script defer src="./js/pwa.js"></script>
+
+</body>
+</html>

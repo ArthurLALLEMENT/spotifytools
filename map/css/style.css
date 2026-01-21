@@ -1,0 +1,233 @@
+@charset "UTF-8";
+
+/**************************************/
+/* RESET GLOBAL                       */
+/**************************************/
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    line-height: 1.5;
+    background: #121212;
+    color: #FFFFFF;
+}
+
+strong {
+    color: #1ED760;
+}
+
+
+
+/**************************************/
+/* TITRES                             */
+/**************************************/
+h1, h2, h3 {
+    font-weight: 600;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+h3 {
+    color: #1ED760;
+}
+
+/**************************************/
+/* BOUTONS SPOTIFY                    */
+/**************************************/
+button {
+    background: #1ED760;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.7rem 1.6rem;
+    border: none;
+    border-radius: 500px; /* pill shape like Spotify */
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+button:hover {
+    background: #1DB954;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button:disabled {
+    display: none;
+}
+
+/**************************************/
+/* CONTAINERS PRINCIPAUX              */
+/**************************************/
+.section-card {
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 16px;
+    max-width: 900px;
+}
+
+.box {
+  background-color: black;
+}
+
+/**************************************/
+/* LOGIN SPOTIFY                       */
+/**************************************/
+#loginContainer {
+    text-align: center;
+    padding: 80px 0;
+}
+
+/**************************************/
+/* TABLEAU DES TRACKS (look Spotify)  */
+/**************************************/
+#tracksTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #282828;
+    font-size: 0.95rem;
+}
+
+#tracksTable tr {
+  background: #282828;
+}
+
+#tracksTable th {
+    padding: 12px 10px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    color: #ffffff;
+}
+
+#tracksTable td {
+    padding: 14px 10px;
+    border-top: 1px solid #1a1a1a;
+    color: #ffffff;
+}
+
+#tracksTable img {
+    width: 54px;
+    height: 54px;
+    border-radius: 6px;
+}
+/**************************************/
+/* Tableau Short Term Top Tracks */
+/**************************************/
+#shortTracksTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #282828;
+    font-size: 0.95rem;
+}
+
+#shortTracksTable tr {
+  background: #282828;
+}
+
+#shortTracksTable th {
+    padding: 12px 10px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    color: #ffffff;
+}
+
+#shortTracksTable td {
+    padding: 14px 10px;
+    border-top: 1px solid #1a1a1a;
+    color: #ffffff;
+}
+
+#shortTracksTable img {
+    width: 54px;
+    height: 54px;
+    border-radius: 6px;
+}
+
+/**************************************/
+/* SPOTIFY PLAYER EMBED               */
+/**************************************/
+#playlistContainer iframe {
+    width: 100%;
+    max-width: 640px;
+    height: 380px;
+    border-radius: 16px;
+    box-shadow: 0 0 22px rgba(30, 215, 96, 0.1);
+}
+
+#gyroSection iframe {
+  width: 100%;
+  max-width: 640px;
+  height: 380px;
+  border-radius: 16px;
+  box-shadow: 0 0 22px rgba(30, 215, 96, 0.1);
+}
+
+/**************************************/
+/* MAP LEAFLET                        */
+/**************************************/
+#map {
+    width: 100%;
+    height: 60vh;
+    border-radius: 16px;
+    border: 2px solid #1ED76033;
+    box-shadow: 0 0 16px rgba(30, 215, 96, 0.15);
+    overflow: hidden;
+}
+
+/**************************************/
+/* ELEMENTS MASQUÉS                   */
+/**************************************/
+.hidden {
+    display: none;
+}
+
+/**************************************/
+/* RESPONSIVE                         */
+/**************************************/
+@media (max-width: 600px) {
+    button {
+        width: 100%;
+    }
+
+    #tracksTable img {
+        width: 42px;
+        height: 42px;
+    }
+
+    #map {
+        height: 50vh;
+    }
+
+    .section-card {
+        padding: 18px;
+        border-radius: 12px;
+    }
+}
+
+/* FIX navbar mobile Bulma */
+@media screen and (max-width: 1023px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-menu.is-active {
+    display: block;
+  }
+}
+
+.navbar-brand img {
+  max-height: 3rem;
+  width: auto;
+}
